@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+     <style>
+        body{
+            font-family: "Microsoft Yahei";
+        }
+        .navigator{
+            width: 500px;margin: 0 auto
+        }
+        .navigator li{
+           color: #000;font-size: 14px;
+        }
+    </style>
+    <title>按需加载js</title>
+</head>
+<body>
+<body ng-controller="myController">
+	<ul class="navigator nav nav-pills">
+	    <li role="presentation" class="active"><a href="#home" ng-click="isActive($event)">主页</a></li>
+	    <li role="presentation" class="active"><a href="#page2">Page2</a></li>
+	    <li role="presentation" class="active"><a href="#page3" ng-click="isActive($event)">Page3</a></li>
+	</ul>
+	<div ui-view style="width: 500px;margin: 50px auto 0"></div>
+
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

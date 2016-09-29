@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html> 
+<head>
+   <meta charset="utf-8">
+   <title>AngularJS依赖注入</title>
+</head>
+   
+<body ng-app="mainApp" >
+   <h2>AngularJS 简单应用</h2>
+   <div ng-controller="CalcController">
+      <p>配置：{{constant}}</p>
+      <p>输入一个数字: <input type = "number" ng-model = "number" /></p>
+      <button ng-click = "square()">X<sup>2</sup></button>
+      <p>结果: {{result}}</p>
+   </div>
+   <hr>
+   <div ng-controller="CalcController2">
+      <p>再输入一个数字: <input type = "number" ng-model = "number" /></p>
+      <button ng-click = "square()">X<sup>2</sup></button>
+      <p>结果: {{result}}</p>
+   </div>
+   
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+
+<script>
+   var mainApp = angular.module("mainApp", []);
+
+   mainApp.config(function($provide) {
+      // 创建一个名叫MathService的provider
+      $provide.provider('MathService', function() {
+         this.$get = function() {
+            var factory = {};         
+            factory.multiply = function(a, b) {
+               return a * b;
+            }
+            return factory;
+         };
+      });
+   });
+
+   // 创建一个名叫defaultInput的value
+   mainApp.value("defaultInput", 5);
+
+   // 创建一个名叫constant的constant value
+   mainApp.constant("constant", "constant value");
+
+
+   // 将MathService、defaultInput、constant注入到控制器
+   mainApp.controller('CalcController', function($scope, MathService, defaultInput, constant) {
+      $scope.number = defaultInput;
+      $scope.constant = constant;
+
+      $scope.result = MathService.multiply($scope.number,$scope.number);
+
+      $scope.square = function() {
+         $scope.result = MathService.multiply($scope.number,$scope.number);
+      }
+   });
+
+
+   /*--------以下是CalcController2的内容--------*/
+
+   // 创建一个名叫MathService2的factory
+   mainApp.factory('MathService2', function() {
+      var factory = {};
+      
+      factory.multiply = function(a, b) {
+         return a * b;
+      }
+      return factory;
+   });
+   
+   // 创建一个名叫CalcService2的service，并且注入MathService2
+   mainApp.service('CalcService2', function(MathService2){
+      this.square = function(a) {
+         return MathService2.multiply(a,a);
+      }
+   });
+
+   // 将CalcService2注入到控制器
+   mainApp.controller('CalcController2',function($scope,CalcService2){
+      $scope.number = 6;
+      $scope.result = CalcService2.square($scope.number);
+      $scope.square = function() {
+         $scope.result = CalcService2.square($scope.number,$scope.number);
+      }
+   });
+	
+</script>
+   
+</body>
+</html>

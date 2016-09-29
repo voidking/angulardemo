@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>HTTP请求服务器数据</title>
+	<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="myApp" >
+
+	<div ng-controller="myCtrl"> 
+	<h1>欢迎你！{{username}}</h1>
+
+	</div>
+
+	<p> $http 服务向服务器请求信息，返回的值放入变量 "username" 中。</p>
+
+<script>
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl', function($scope, $http, $httpParamSerializer) {
+	  	$http({
+	    	method:'POST',
+	    	url:'/angulardemo/http.php',
+	    	headers:{
+	    		'Content-Type':'application/x-www-form-urlencoded'
+	    	},
+	    	dataType: 'json',
+	    	data: $httpParamSerializer({username:'voidking'})
+	  	}).then(function successCallback(response) {
+    		console.log(response.data);
+    		$scope.username = response.data.username;
+  		}, function errorCallback(response) {
+    		console.log(response.data);
+  		});;
+	});
+</script>
+
+</body>
+</html>

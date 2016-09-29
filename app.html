@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>定义应用和控制器</title>
+    <style>
+    	[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    	  display: none !important;
+    	}
+    </style>
+</head>
+<body>
+    <div ng-controller="myCtrl">
+
+    名: <input type="text" ng-model="firstName"><br>
+    姓: <input type="text" ng-model="lastName"><br>
+    <br>
+    姓名: <span>{{firstName + " " + lastName}}</span><br>
+    姓名2: <span class="ng-cloak">{{fullName()}}</span><br>
+    姓名3: <span ng-bind="fullName()"></span>
+    </div>
+
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+            $scope.firstName= "John";
+            $scope.lastName= "Doe";
+            $scope.fullName = function() {
+                return $scope.firstName + " " + $scope.lastName;
+            }
+        });
+    </script>
+</body>
+</html>
