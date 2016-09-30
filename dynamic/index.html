@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" ng-app="myApp">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -16,8 +16,7 @@
     </style>
     <title>按需加载js</title>
 </head>
-<body>
-<body ng-controller="myController">
+<body ng-app="myApp">
 	<ul class="navigator nav nav-pills">
 	    <li role="presentation" class="active"><a href="#home" ng-click="isActive($event)">主页</a></li>
 	    <li role="presentation" class="active"><a href="#page2">Page2</a></li>
@@ -28,6 +27,6 @@
 <script src="bower_components/angular/angular.min.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
-<script src="js/index.js"></script>
+<script src="public/js/index.js"></script>
 </body>
 </html>
